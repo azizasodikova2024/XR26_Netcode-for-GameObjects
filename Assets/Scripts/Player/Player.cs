@@ -4,9 +4,11 @@ using Unity.Netcode.Components;
 using Unity.Collections;
 
 public class Player : NetworkBehaviour
+
 {
+    [SerializeField] private PlayerChat playerChat;
     // Network variable to store player name
-    private NetworkVariable<FixedString32Bytes> playerName = new NetworkVariable<FixedString32Bytes>(
+    public NetworkVariable<FixedString32Bytes> PlayerName = new NetworkVariable<FixedString32Bytes>(
         value: default,
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Owner
@@ -23,8 +25,8 @@ public class Player : NetworkBehaviour
         }
         else
         {
-            playerName.Value = PlayerSettings.playerName;
-            Debug.Log($"The player name is {playerName.Value}");
+            PlayerName.Value = PlayerSettings.playerName;
+            Debug.Log($"The player name is {PlayerName.Value}");
         }
 
 
@@ -120,4 +122,5 @@ public class Player : NetworkBehaviour
         Debug.Log($"SERVER: Changing moveSpeed to {newSpeed}");
         moveSpeed.Value = newSpeed;
     }
+
 }
